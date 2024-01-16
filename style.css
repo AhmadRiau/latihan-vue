@@ -1,6 +1,10 @@
-.container{
+.container {
   width: 200px;
   border-style: solid;  
   border-width: thin;
   padding: 6px;
+}
+.flash {
+   background: linear-gradient(90deg, rgb(11, 59, 104) 0%, rgba(204,64,64,1) 50%, rgb(126, 238, 51) 100%);
+   color: whitesmoke;
 }
