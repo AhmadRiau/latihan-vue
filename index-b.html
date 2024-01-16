@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <link rel="stylesheet" href="style.css">
+   <title>Document</title>
+</head>
+<body>
+   <div id="app">      
+      <img v-bind:src="img" :alt="alt">   
+      <p v-text="message"></p> 
+      <hr>
+      <div>
+         <h4>Conditional</h4>
+         <b>Using v-if</b>
+         <p v-if="isItTru">Item is true</p>         
+         <p v-else-if="!isItTru">Item is false</p>
+         <p v-else>Item isn't right</p>
+         
+         <!-- v-show muncul di dom, namun tidak muncul di halaman web -->
+         <b>Using v-show</b>
+         <p v-show="isItTru">meski tak terlihat (cek di element)</p>
+         <p v-show="!isItTru">Akan tetap muncul di DOM</p>      
+         <hr>
+      </div>
+      
+      <div>
+         <h4>Loop</h4>
+         <p>
+            <span v-for="(name,index) in nameArr">
+               {{ name }} : {{index }},
+            </span><br>
+            <span v-for="(value) in carCollection">
+               {{value.brand}} : {{value.name }}<br>
+            </span><br >
+            <hr>
+         </p>
+      </div>
+      <div>
+         <h4>Disable Update</h4>
+         <p> 
+            <b>v-once mencegah perubahan dari elemen</b> <br>
+            <span v-once>{{ nameExample }}</span><br>
+            <span> {{ nameExample }}</span>
+            {{ updateName() }}
+         </p>   
+         <hr>
+      </div>
+      
+      <div>
+         <h4>Working with Event</h4>
+         <p>
+            <span> Nama : {{name}} </span>
+            <form v-on:submit.prevent="handleForm">
+               <input type="text" name="inputName">
+               <button type="submit">Change Name</button>
+            </form>                     
+            <div class="box" v-on:mousemove="getCoordinate">
+               <p>Koordinat mouse : {{boxText}} </p>
+            </div>
+            <p>Keyboard Event</p>
+            <input type="text" v-on:keyup.enter="showKeyEvent">
+         </p>
+      </div>
+   </div>
+   
+   <script>
+      const App = {
+         data() {
+            return {
+               message: "Good bye, World",
+               img : "https://picsum.photos/200/300",
+               alt : "ini gambar",
+               isItTru : true,   
+               nameExample : "Jhonny",
+               boxText : "",
+               myArr : ['namanya', 'juga', 'orang', 'ngoding'],
+               nameArr : [ 'Eve', 'Bob','Alice', 'Dave',  'Charlie',],
+               carCollection: [
+                  { name: 'Model S', brand: 'Tesla' },
+                  { name: 'Mustang', brand: 'Ford' },
+                  { name: 'Civic', brand: 'Honda' },
+                  { name: 'Camry', brand: 'Toyota' },
+                  { name: '911', brand: 'Porsche' }
+               ],
+               name : "Gyro"
+            }
+         },
+         methods: {
+            showKeyEvent(event){
+               console.log(event.target.value);
+            },
+            updateName() {
+               setTimeout(() => {
+                  this.nameExample = "Joestar";
+               }, 2000)
+            },
+            handleForm(submitEvent) {
+               this.name = submitEvent.target.elements.inputName.value
+            },
+            getCoordinate(event){
+               this.boxText = `X: ${event.offsetX} | Y: ${event.offsetY}`
+            },
+            
+         }
+      };
+      Vue.createApp(App).mount('#app');
+   </script>
+</body>
+</html>
