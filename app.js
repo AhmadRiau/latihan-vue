@@ -1,5 +1,3 @@
-const DEFAULT_STATE = {}
-
 const App = Vue.createApp({
    data() {
       return{
@@ -12,11 +10,12 @@ const App = Vue.createApp({
       }
    },
    computed: {
-      isReady() {this.names.length > 1;} 
+      isReady() {return this.namesList.length > 1;} 
    },
    methods: {
-      addNameTolist(){
+      addNameToList(){
          const getUserName = this.inputName;
+         console.log(getUserName);
          if(this.validate(getUserName)) {
             this.namesList.push(getUserName);
             this.inputName = '';
@@ -25,9 +24,46 @@ const App = Vue.createApp({
          }
       },
       validate(value) {
-         if (value === '') {
-            this.errorMessage
+         if (value === "") {
+            this.errorMessage = "Can't left them empty"
+            return false;
          }
-      }
-   }
-})
+         if (this.namesList.includes(value)) {
+            this.errorMessage = "Name has already been added"
+            return false;
+         }
+         return true;
+      },
+      removeName(index){
+         this.namesList.splice(index, 1);
+      },
+      showResult() {
+         this.generateResult();
+         this.state = false;
+       },
+       getWinnerName(){
+         return this.namesList[Math.floor(Math.random() * this.namesList.length)];
+       },
+       generateResult() {
+         let winnerName = this.getWinnerName();
+
+         if (this.result !== "") {
+           while (winnerName === this.result) {
+             winnerName = this.getWinnerName();
+           }
+         }
+         this.result = winnerName;
+       },
+       resetApp() {
+         this.state = true;
+         this.inputName = "";
+         this.names = [];
+         this.error = "";
+         this.showError = false;
+         this.result = "";
+       },
+       getNewResult() {
+         this.generateResult();
+      },
+   },
+}).mount("#app");
