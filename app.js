@@ -5,7 +5,7 @@ const App = Vue.createApp({
       return{
          state : true,
          inputName : '',
-         namesList : ['jhonny', 'gyro'],
+         namesList : [],
          errorMessage : '',
          showError : false,
          result : 'test',
