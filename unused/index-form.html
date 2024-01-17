@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Latihan Vue</title>
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+<div id="app">
+   <div class="body">
+      <span style="text-align: center;">
+         <h1>Latihan Vue</h1>
+         <h3>V-Model</h3><hr>
+      </span>      
+      <div class="container" v-bind:class="{flash: dataPerson.check}">
+         <form v-on:submit.prevent="handleForm">
+            <label for="fr-name">First Name</label> <br>
+            <input type="text" name="fr-name" v-model="dataPerson.firstname"> <br>
+            <label for="bg-name">Last Name</label> <br>
+            <input type="text" name="bg-name" v-model="dataPerson.lastname"> <br>
+            
+            <label for="age">Age</label> <br>
+            <input type="number" name="age" v-model.number="dataPerson.age"> <br>
+
+            <p>
+               <label for="check">Change Box Style</label><br>
+               <input type="checkbox" v-model="dataPerson.check">{{dataPerson.check}}</input>
+            </p>
+            
+            <hr>
+
+            <button type="submit" >Submit</button>
+            <p>
+               The name is: <br>{{dataPerson.firstname + " " + dataPerson.lastname}} <br>
+               Age : {{dataPerson.age}}
+            </p>
+         </form>
+      </div>
+   </div>
+</div>   
+
+<script>
+   const App = {
+      data() {
+         return{
+            dataPerson : {
+               firstname : "",
+               lastname : "",
+               age : 0,
+               check : false,
+            },            
+         }
+      },
+      methods: {
+         handleForm () {
+            console.log(this.dataPerson.firstname);
+            console.log(this.dataPerson.lastname);
+            console.log(this.dataPerson.age);
+            console.log(this.dataPerson.check);
+         }
+      }
+   };
+   Vue.createApp(App).mount('#app');
+</script>
+
+</body>
+</html>

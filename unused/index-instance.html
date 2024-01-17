@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <link rel="stylesheet" href="style.css">
+ 
+</head>
+<body>
+<div id="app">
+   <p>
+      Value of instance one : {{value}}         
+   </p>
+   <button @click="changeInstanceValue">Change</button>
+</div>
+
+<div id="app2">
+   <p>
+      Value of instance two : {{value}}
+   </p>      
+   <button @click="greeting">Greet</button>
+</div>
+
+<script>
+   let greet = "Hello there"
+
+// ======================================================================      
+   const App = Vue.createApp({
+      data() {
+         return {
+            value : 'instance one',
+            
+         }
+      },
+      methods: {
+         changeInstanceValue(){
+            console.log(App2.value);
+            App2.value = 'changed instance 2 value';
+         },
+      }
+   }).mount('#app');
+// ======================================================================
+   const App2 = Vue.createApp({
+      data() {
+         return {
+            value: 'instance two',
+            greet : "it's me"
+         }
+      },
+      methods: {
+         greeting() {
+            alert(greet + " " + this.greet)
+         }
+      }
+   }).mount('#app2');
+
+</script>
+
+</body>
+</html>

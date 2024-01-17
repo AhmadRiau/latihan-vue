@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Latihan vue</title>
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+   <div id="app">
+      <!-- Menjalankan sebuah fungsi tanpa merender ulang web, merender ulang akan menjalankan semua fungsi -->
+      <div class="computed-Properties">
+         <h3>Computed Properties</h3>
+         <input type="text" v-model="name">
+         <button v-on:click="handleActive">Active</button>
+         <p>
+            {{compMessage}}<br>
+            {{compMesActive}}
+         </p>      
+      </div>
+      <hr>
+      <!-- Membaca perubahan data, kemudian menjalankan fungsi -->
+      <div class="watcher">
+         <h3>Watcher</h3>
+         <p>
+            {{watcherHandle}}
+         </p>
+      </div>
+   </div>
+   <script>
+      const App = {
+         data() {
+            return{
+               name : '',
+               active : false,
+               watcherHandle : 'Watcher on idle',
+               url : 'google.com'
+            }
+         },
+         computed:{
+            compMessage() {
+               console.log("Computed Typing message");
+               return this.name === 'jhonny' ? 'Yohoho Jhonny' : 'Yohoho, who are you'
+            },
+            compMesActive() {
+               console.log("Computed activate message");
+               return this.active ? 'Comp Active' : 'Comp Not Active'
+            },
+         },
+         watch:{
+            active(value) { // variable(params) bukan nama fungsi
+               if (value) {
+                  this.watcherHandle = 'Watcher is active'
+               } else {
+                  this.watcherHandle = 'Watcher is not active'
+               }
+               console.log('watch triggered');
+            }
+         },
+         methods : {         
+            handleActive() {
+               this.active = !this.active
+            }
+         },
+      }
+      Vue.createApp(App).mount('#app')
+   </script>
+</body>
+</html>
