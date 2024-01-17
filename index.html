@@ -4,13 +4,26 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Random Pick Item</title>
-   
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
    <link rel="stylesheet" href="style.css">
  
 </head>
 <body>
-
+   <ul class="squares">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+   </ul>
 <div id="app">
    <div id="names" class="container animate__animated animate__fadeIn" v-if="state">
       <div class="logo">
@@ -27,20 +40,73 @@
             <div v-for="(name, index) in namesList" v-bind:key="name" @click="removeName(index)" class="animate__animated animate_fadeIn">{{name}}</div>
          </div>
          
-         <div v-if="isReady" class="animate__animated animate__bounceIn" >
-            <div class="action-button" @click="showResult" > Check The Winner </div>
+         <div v-if="isReady" class="animate__animated animate__bounceIn" >                                    
+            <div class="button-wrapper" style="text-align: center;">
+               <div class="action-button confetti-button" 
+               onclick="startConfetti()"  
+               @click="showResult" 
+               @click.prevent="playSound('fanfare.mp3')"
+               > Check The Winner </div>               
+            </div>
          </div>
       </div>
    </div>
    <div id="result" class="container animate__animated animate_fadeIn" v-if="!state">
-      <div class="result-container">
+      <div class="result-container">         
          <h2>You are The Winner</h2>
-            <div class="result value"> {{result}} </div>
+            <div class="result-value"> {{result}} </div>
             <div class="action-button" @click="resetApp">Start Over</div> <br>
-            <div class="action-button result-button" @click="getNewResult">Change Result</div>
+            
+      </div>
+      <div class="button-wrapper">
+         <div class="action-button result-button confetti-button" 
+               onclick="startConfetti()" 
+               @click.prevent="playSound('fanfare.mp3')"
+               @click="getNewResult">Change Result</div>
       </div>
    </div>
 </div>
+
 <script src="app.js"></script>
+<script>
+   function startConfetti(){
+      var count = 200;
+      var defaults = {
+         origin: { y: 0.7 }
+      };
+
+      function fire(particleRatio, opts) {
+         confetti({
+            ...defaults,
+            ...opts,
+            particleCount: Math.floor(count * particleRatio)
+         });
+      }
+
+      fire(0.25, {
+         spread: 26,
+         startVelocity: 55,
+      });
+      fire(0.2, {
+         spread: 60,
+      });
+      fire(0.35, {
+         spread: 100,
+         decay: 0.91,
+         scalar: 0.8
+      });
+      fire(0.1, {
+         spread: 120,
+         startVelocity: 25,
+         decay: 0.92,
+         scalar: 1.2
+      });
+         fire(0.1, {
+         spread: 120,
+         startVelocity: 45,
+         });
+   }   
+</script>
+
 </body>
 </html>

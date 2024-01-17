@@ -1,12 +1,14 @@
-const App = Vue.createApp({
+// Sound Effect from Pixabay
+
+const App = Vue.createApp({   
    data() {
       return{
          state : true,
          inputName : '',
-         namesList : [],
+         namesList : ['jhonny', 'gyro'],
          errorMessage : '',
          showError : false,
-         result : '',
+         result : 'test',
       }
    },
    computed: {
@@ -42,6 +44,7 @@ const App = Vue.createApp({
          this.state = false;
        },
        getWinnerName(){
+         
          return this.namesList[Math.floor(Math.random() * this.namesList.length)];
        },
        generateResult() {
@@ -65,5 +68,12 @@ const App = Vue.createApp({
        getNewResult() {
          this.generateResult();
       },
+      playSound (sound) {
+         if(sound) {
+           var audio = new Audio(sound);
+           audio.play();
+         }
+       }
    },
 }).mount("#app");
+
